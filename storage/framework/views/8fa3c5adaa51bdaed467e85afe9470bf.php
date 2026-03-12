@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\Admin\Desktop\code\laravel_online_shop\resources\views\front\layouts\app.blade.php ENDPATH**/ ?>

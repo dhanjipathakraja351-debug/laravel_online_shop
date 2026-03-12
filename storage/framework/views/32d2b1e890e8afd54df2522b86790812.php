@@ -1,0 +1,1 @@
+<h1>home page</h1><?php /**PATH C:\Users\Admin\Desktop\code\laravel_online_shop\resources\views\front\home.blade.php ENDPATH**/ ?>
