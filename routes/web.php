@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BrandsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\FrontController;
+//i am learning git and this is my second commit
 
 /*
 |--------------------------------------------------------------------------
