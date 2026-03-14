@@ -21,7 +21,7 @@ use App\Http\Controllers\FrontController;
 |--------------------------------------------------------------------------
 */
 
-// Redirect root to admin login
+ //Redirect root to admin login
 Route::get('/', function () {
     return redirect()->route('admin.login');
 });

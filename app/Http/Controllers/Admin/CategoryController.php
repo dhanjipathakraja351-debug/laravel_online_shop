@@ -50,7 +50,8 @@ class CategoryController extends Controller
         $category = Category::create([
             'name' => $request->name,
             'slug' => $slug,
-            'status' => $request->status
+            'status' => $request->status,
+            'showHome' => $request->showHome
         ]);
 
         // HANDLE IMAGE
@@ -123,7 +124,8 @@ class CategoryController extends Controller
         $category->update([
             'name' => $request->name,
             'slug' => $slug,
-            'status' => $request->status
+            'status' => $request->status,
+            'showHome' => $request->showHome
         ]);
 
         return redirect()

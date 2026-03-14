@@ -73,6 +73,14 @@
                                     <option value="0">Block</option>
                                 </select>
                             </div>
+                            <div class="col-md-6">
+                            <div class="mb-3">
+                                <label>Show on Home</label>
+                                <select name="showHome" id="showHome" class="form-control">
+                                    <option value="1">yes</option>
+                                    <option value="0">no</option>
+                                </select>
+                            </div>
                         </div>
 
                     </div>

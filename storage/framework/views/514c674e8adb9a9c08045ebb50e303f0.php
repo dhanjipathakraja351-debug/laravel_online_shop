@@ -1,6 +1,6 @@
-@extends('admin.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <section class="content-header">					
     <div class="container-fluid my-2">
@@ -9,7 +9,7 @@
                 <h1>Create Sub Category</h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-primary">Back</a>
+                <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>
@@ -19,27 +19,28 @@
     <div class="container-fluid">
 
         <form id="subcategoryForm">
-            @csrf
+            <?php echo csrf_field(); ?>
 
             <div class="card">
                 <div class="card-body">								
                     <div class="row">
 
-                        {{-- Category --}}
+                        
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label>Category</label>
                                 <select name="category_id" class="form-control">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">
-                                            {{ $category->name }}
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->id); ?>">
+                                            <?php echo e($category->name); ?>
+
                                         </option>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
 
-                        {{-- Name --}}
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Name</label>
@@ -48,7 +49,7 @@
                             </div>
                         </div>
 
-                        {{-- Slug --}}
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Slug</label>
@@ -57,7 +58,7 @@
                             </div>
                         </div>
 
-                        {{-- Status --}}
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Status</label>
@@ -83,7 +84,7 @@
 
             <div class="pb-5 pt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
+                <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn btn-outline-dark ml-3">Cancel</a>
             </div>
 
         </form>
@@ -91,10 +92,10 @@
     </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('customjs')
+<?php $__env->startSection('customjs'); ?>
 <script>
 
 $(document).ready(function(){
@@ -102,7 +103,7 @@ $(document).ready(function(){
     // Auto slug
     $("#name").keyup(function(){
         $.ajax({
-            url: "{{ route('admin.getSlug') }}",
+            url: "<?php echo e(route('admin.getSlug')); ?>",
             type: "GET",
             data: { title: $(this).val() },
             success: function(response){
@@ -122,14 +123,14 @@ $(document).ready(function(){
         $(".form-control").removeClass('is-invalid');
 
         $.ajax({
-            url: "{{ route('admin.sub-categories.store') }}",
+            url: "<?php echo e(route('admin.sub-categories.store')); ?>",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response){
 
                 if(response.status === true){
-                    window.location.href = "{{ route('admin.sub-categories.index') }}";
+                    window.location.href = "<?php echo e(route('admin.sub-categories.index')); ?>";
                 } else {
 
                     let errors = response.errors;
@@ -156,4 +157,5 @@ $(document).ready(function(){
 
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Admin\Desktop\code\laravel_online_shop\resources\views/admin/sub_categories/create.blade.php ENDPATH**/ ?>

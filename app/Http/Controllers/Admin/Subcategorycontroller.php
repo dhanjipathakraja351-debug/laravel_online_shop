@@ -48,6 +48,7 @@ class SubcategoryController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:0,1',
+            'showHome' => 'required|in:0,1'
         ]);
 
         if ($validator->fails()) {
@@ -72,6 +73,7 @@ class SubcategoryController extends Controller
             'slug' => $slug,
             'status' => $request->status,
             'category_id' => $request->category_id,
+            'showHome' => $request->showHome
         ]);
 
         return response()->json([
@@ -103,6 +105,7 @@ class SubcategoryController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:0,1',
+            'showHome' => 'required|in:0,1'
         ]);
 
         if ($validator->fails()) {
@@ -130,6 +133,7 @@ class SubcategoryController extends Controller
             'slug' => $slug,
             'status' => $request->status,
             'category_id' => $request->category_id,
+            'showHome' => $request->showHome
         ]);
 
         return response()->json([

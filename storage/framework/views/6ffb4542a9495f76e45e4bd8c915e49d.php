@@ -1,6 +1,6 @@
-@extends('admin.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <section class="content-header">
     <div class="container-fluid my-2">
@@ -11,9 +11,9 @@
 <section class="content">
 <div class="container-fluid">
 
-<form method="POST" action="{{ route('admin.sub-categories.update', $subcategory) }}">
-    @csrf
-    @method('PUT')
+<form method="POST" action="<?php echo e(route('admin.sub-categories.update', $subcategory)); ?>">
+    <?php echo csrf_field(); ?>
+    <?php echo method_field('PUT'); ?>
 
 ```
 <div class="card">
@@ -22,12 +22,13 @@
         <div class="mb-3">
             <label>Category</label>
             <select name="category_id" class="form-control">
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}"
-                        {{ $subcategory->category_id == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($category->id); ?>"
+                        <?php echo e($subcategory->category_id == $category->id ? 'selected' : ''); ?>>
+                        <?php echo e($category->name); ?>
+
                     </option>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
 
@@ -36,7 +37,7 @@
             <input
                 type="text"
                 name="name"
-                value="{{ $subcategory->name }}"
+                value="<?php echo e($subcategory->name); ?>"
                 class="form-control"
             >
         </div>
@@ -46,7 +47,7 @@
             <input
                 type="text"
                 name="slug"
-                value="{{ $subcategory->slug }}"
+                value="<?php echo e($subcategory->slug); ?>"
                 class="form-control"
             >
         </div>
@@ -54,10 +55,10 @@
         <div class="mb-3">
             <label>Status</label>
             <select name="status" class="form-control">
-                <option value="1" {{ $subcategory->status == 1 ? 'selected' : '' }}>
+                <option value="1" <?php echo e($subcategory->status == 1 ? 'selected' : ''); ?>>
                     Active
                 </option>
-                <option value="0" {{ $subcategory->status == 0 ? 'selected' : '' }}>
+                <option value="0" <?php echo e($subcategory->status == 0 ? 'selected' : ''); ?>>
                     Inactive
                 </option>
             </select>
@@ -68,11 +69,11 @@
                 <label>Show on Home</label>
                 <select name="showHome" id="showHome" class="form-control">
 
-                    <option value="1" {{ $subcategory->showHome == 1 ? 'selected' : '' }}>
+                    <option value="1" <?php echo e($subcategory->showHome == 1 ? 'selected' : ''); ?>>
                         Yes
                     </option>
 
-                    <option value="0" {{ $subcategory->showHome == 0 ? 'selected' : '' }}>
+                    <option value="0" <?php echo e($subcategory->showHome == 0 ? 'selected' : ''); ?>>
                         No
                     </option>
 
@@ -93,4 +94,6 @@
 </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Admin\Desktop\code\laravel_online_shop\resources\views/admin/sub_category/edit.blade.php ENDPATH**/ ?>

@@ -1,6 +1,6 @@
-@extends('admin.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <section class="content-header">
     <div class="container-fluid my-2">
@@ -9,7 +9,7 @@
                 <h1>Create Category</h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+                <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn btn-secondary">
                     Back
                 </a>
             </div>
@@ -21,10 +21,10 @@
     <div class="container-fluid">
 
         <form method="POST"
-              action="{{ route('admin.categories.store') }}"
+              action="<?php echo e(route('admin.categories.store')); ?>"
               id="categoryForm"
               enctype="multipart/form-data">
-            @csrf
+            <?php echo csrf_field(); ?>
 
             <div class="card">
                 <div class="card-body">
@@ -90,7 +90,7 @@
 
             <div class="pt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
-                <a href="{{ route('admin.categories.index') }}"
+                <a href="<?php echo e(route('admin.categories.index')); ?>"
                    class="btn btn-outline-dark ml-3">
                     Cancel
                 </a>
@@ -101,10 +101,10 @@
     </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('customjs')
+<?php $__env->startSection('customjs'); ?>
 <script>
 $(document).ready(function(){
 
@@ -117,7 +117,7 @@ $(document).ready(function(){
         let formData = new FormData(this);
 
         $.ajax({
-            url: "{{ route('admin.categories.store') }}",
+            url: "<?php echo e(route('admin.categories.store')); ?>",
             type: "POST",
             data: formData,
             processData: false,
@@ -126,7 +126,7 @@ $(document).ready(function(){
             success: function(response){
 
                 if(response.status === true){
-                    window.location.href = "{{ route('admin.categories.index') }}";
+                    window.location.href = "<?php echo e(route('admin.categories.index')); ?>";
                 } else {
 
                     let errors = response.errors;
@@ -149,7 +149,7 @@ $(document).ready(function(){
 
     $("#name").keyup(function(){
         $.ajax({
-            url: "{{ route('admin.getSlug') }}",
+            url: "<?php echo e(route('admin.getSlug')); ?>",
             type: "GET",
             data: { title: $(this).val() },
             success: function(response){
@@ -162,4 +162,5 @@ $(document).ready(function(){
 
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Admin\Desktop\code\laravel_online_shop\resources\views/admin/categories/create.blade.php ENDPATH**/ ?>
