@@ -11,17 +11,17 @@ use App\Models\OrderItem;
 
 class AuthController extends Controller
 {
-    // ✅ SHOW LOGIN PAGE
+    //  SHOW LOGIN PAGE
     public function login() {
         return view('front.account.login');
     }
 
-    // ✅ SHOW REGISTER PAGE
+    //  SHOW REGISTER PAGE
     public function register() {
         return view('front.account.register');
     }
 
-    // ✅ STORE REGISTER (AJAX)
+    //  STORE REGISTER (AJAX)
     public function storeRegister(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -31,7 +31,7 @@ class AuthController extends Controller
             'password' => 'required|min:5|confirmed'
         ]);
 
-        // ❌ VALIDATION FAIL
+        //  VALIDATION FAIL
         if($validator->fails()){
             return response()->json([
                 'status' => false,
@@ -39,7 +39,7 @@ class AuthController extends Controller
             ]);
         }
 
-        // ✅ CREATE USER
+        //  CREATE USER
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,14 +47,14 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        // ✅ SUCCESS RESPONSE
+        //  SUCCESS RESPONSE
         return response()->json([
             'status' => true,
             'message' => 'Registration successful! Please login.'
         ]);
     }
 
-    // ✅ LOGIN USER (AJAX)
+    //  LOGIN USER (AJAX)
     public function loginUser(Request $request)
     {
         $credentials = $request->only('email','password');
@@ -72,12 +72,12 @@ class AuthController extends Controller
         ]);
     }
 
-    // ✅ PROFILE PAGE
+    //  PROFILE PAGE
     public function profile() {
         return view('front.account.profile');
     }
 
-    // ✅ LOGOUT
+    //  LOGOUT
     public function logout()
     {
         Auth::logout();
@@ -148,26 +148,26 @@ class AuthController extends Controller
 
  public function orderDetail($id)
 {
-    // ✅ check if order belongs to logged-in user
+    //  check if order belongs to logged-in user
     $order = Order::where('id', $id)
                   ->where('user_id', Auth::id())
                   ->first();
 
-    // ❌ if not found or not authorized
+    //  if not found or not authorized
     if (!$order) {
         return redirect()->route('orders')
             ->with('error', 'Order not found');
     }
 
-    // ✅ get items with product (ONLY ONCE)
+    //  get items with product (ONLY ONCE)
     $orderItems = OrderItem::with('product')
                     ->where('order_id', $order->id)
                     ->get();
 
-    // ✅ total qty
+    //  total qty
     $totalQty = $orderItems->sum('qty');
 
-    // ✅ return view (FIX: include totalQty)
+    //  return view (FIX: include totalQty)
     return view('front.account.order-detail', compact('order', 'orderItems', 'totalQty'));
 
    }
