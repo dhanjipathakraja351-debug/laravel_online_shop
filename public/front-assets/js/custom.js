@@ -1,6 +1,14 @@
 $(document).ready(function(){
-    var lazyLoadInstance = new LazyLoad({elements_selector:"img.lazy, video.lazy, div.lazy, section.lazy, header.lazy, footer.lazy,iframe.lazy"});
+
+    // ✅ FIX: Prevent crash if LazyLoad not loaded
+    if (typeof LazyLoad !== "undefined") {
+        var lazyLoadInstance = new LazyLoad({
+            elements_selector:"img.lazy, video.lazy, div.lazy, section.lazy, header.lazy, footer.lazy,iframe.lazy"
+        });
+    }
+
     let bannerHeight = $(window).height();
+
     $("#related-products").not('.slick-initialized').slick({
         centerMode: false,
         slidesToShow: 4,
@@ -15,49 +23,45 @@ $(document).ready(function(){
                 centerPadding: '0px',
                 slidesToShow: 5,
                 slidesToScroll: 1,
-                
             }
         },{
             breakpoint: 1300,
             settings: {
-                 centerMode: false,
+                centerMode: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
             }
         },{
             breakpoint: 1200,
             settings: {
-                 centerMode: false,
+                centerMode: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
             }
         },{
             breakpoint: 1024,
             settings: {
-                 centerMode: false,
+                centerMode: false,
                 slidesToShow: 2,
                 slidesToScroll: 1,
             }
         },{
             breakpoint: 992,
             settings: {
-                 centerMode: false,
+                centerMode: false,
                 slidesToShow: 2,
                 slidesToScroll: 1,
             }
         },{
             breakpoint: 576,
             settings: {
-                 centerMode: false,
+                centerMode: false,
                 slidesToShow: 1,
-                slidesToScroll: 1,      
+                slidesToScroll: 1,
             }
-        }] 
-    
+        }]
     });
-   
 
-   
 });
 
 

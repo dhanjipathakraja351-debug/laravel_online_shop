@@ -1,7 +1,15 @@
 <?php
+
 use App\Models\Category;
 
-function getCategories(){
-    return Category::orderBy('name','ASC')->get();
+if (!function_exists('getCategories')) {
+
+    function getCategories()
+    {
+        return Category::where('showHome', 1)
+            ->orderBy('name', 'ASC')
+            ->where('status',1)
+            ->get();
+    }
+
 }
-?>

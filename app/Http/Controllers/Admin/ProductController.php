@@ -16,9 +16,6 @@ use Intervention\Image\Laravel\Facades\Image;
 class ProductController extends Controller
 {
 
-    /* ======================================================
-    PRODUCT LIST
-    ====================================================== */
     public function index()
     {
         $products = Product::latest('id')->with('product_images')->paginate();
@@ -27,10 +24,6 @@ class ProductController extends Controller
         return view('admin.products.list',$data);
     }
 
-
-    /* ======================================================
-    CREATE PRODUCT PAGE
-    ====================================================== */
     public function create()
     {
         $categories = Category::orderBy('name','asc')->get();
@@ -39,10 +32,6 @@ class ProductController extends Controller
         return view('admin.products.create', compact('categories','brands'));
     }
 
-
-    /* ======================================================
-    STORE PRODUCT
-    ====================================================== */
     public function store(Request $request)
     {
 
@@ -70,7 +59,10 @@ class ProductController extends Controller
 
         $product->title = $request->title;
         $product->slug = $request->slug;
-        $product->description = $request->description;
+        $product->description = strip_tags(
+    $request->description,
+    '<p><br><strong><b><ul><ol><li>'
+);
 
         $product->price = $request->price;
         $product->compare_price = $request->compare_price;
@@ -78,19 +70,22 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->barcode = $request->barcode;
 
-        $product->track_qty = $request->track_qty ? 'yes' : 'no';
+        // ✅ FIXED
+        $product->track_qty = $request->track_qty ? 1 : 0;
         $product->qty = $request->qty ?? 0;
 
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
 
         $product->status = $request->status;
-        $product->is_featured = $request->is_featured ? 'yes' : 'no';
+
+        // ✅ FIXED
+        $product->is_featured = $request->is_featured ? 1 : 0;
 
         $product->save();
 
 
-        /* ================= IMAGE UPLOAD ================= */
+        /* IMAGE UPLOAD */
 
         if($request->has('image_array')){
 
@@ -133,9 +128,6 @@ class ProductController extends Controller
     }
 
 
-    /* ======================================================
-    EDIT PRODUCT
-    ====================================================== */
     public function edit($id)
     {
         $product = Product::with('product_images')->findOrFail($id);
@@ -153,9 +145,6 @@ class ProductController extends Controller
     }
 
 
-    /* ======================================================
-    UPDATE PRODUCT
-    ====================================================== */
     public function update(Request $request,$id)
     {
         $product = Product::findOrFail($id);
@@ -181,7 +170,10 @@ class ProductController extends Controller
 
         $product->title = $request->title;
         $product->slug = $request->slug;
-        $product->description = $request->description;
+        $product->description = strip_tags(
+    $request->description,
+    '<p><br><strong><b><ul><ol><li>'
+);
 
         $product->price = $request->price;
         $product->compare_price = $request->compare_price;
@@ -189,14 +181,17 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->barcode = $request->barcode;
 
-        $product->track_qty = $request->track_qty ? 'yes' : 'no';
+        // ✅ FIXED
+        $product->track_qty = $request->track_qty ? 1 : 0;
         $product->qty = $request->qty ?? 0;
 
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
 
         $product->status = $request->status;
-        $product->is_featured = $request->is_featured ? 'yes' : 'no';
+
+        // ✅ FIXED
+        $product->is_featured = $request->is_featured ? 1 : 0;
 
         $product->save();
 
@@ -207,9 +202,6 @@ class ProductController extends Controller
     }
 
 
-    /* ======================================================
-    DELETE PRODUCT
-    ====================================================== */
     public function destroy($id)
     {
         $product = Product::with('product_images')->findOrFail($id);

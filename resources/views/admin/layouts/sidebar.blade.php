@@ -40,6 +40,40 @@
                     </a>
                 </li>
 
+                <!-- ✅ ADDED SECTION -->
+
+               
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>Orders</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-percent"></i>
+                        <p>Discount</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Pages</p>
+                    </a>
+                </li>
+
+                <!-- END ADDED -->
+
                 <li class="nav-header">ACCOUNT</li>
 
                 <li class="nav-item">

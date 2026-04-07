@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Subcategory;
 
 class Category extends Model
 {
@@ -12,6 +13,12 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
-        'status'
+        'status',
+        'showHome'
     ];
+
+    public function subCategories()
+    {
+        return $this->hasMany(Subcategory::class, 'category_id');
+    }
 }

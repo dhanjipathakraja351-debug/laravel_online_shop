@@ -87,15 +87,15 @@ class CategoryController extends Controller
 
     public function edit($categoryId, Request $request)
     {
-        //$category = Category::findOrFail($id);
         $category = Category::find($categoryId);
-        if(empty($category)) {
+
+        if (empty($category)) {
             return redirect()->route('admin.categories.index');
         }
+
         return view('admin.categories.edit', compact('category'));
     }
 
-    // ✅ ADD THIS METHOD
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
@@ -133,5 +133,34 @@ class CategoryController extends Controller
             ->with('success', 'Category updated successfully');
     }
 
-    
+   public function destroy($id)
+{
+    $category = Category::find($id);
+
+    if (empty($category)) {
+        return redirect()->route('admin.categories.index');
+    }
+
+    // Check if category has subcategories
+    if ($category->subCategories()->count() > 0) {
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('error','Cannot delete category. Subcategories exist.');
+    }
+
+    // delete image
+    if (!empty($category->image)) {
+        $imagePath = public_path('uploads/'.$category->image);
+
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+    }
+
+    $category->delete();
+
+    return redirect()
+        ->route('admin.categories.index')
+        ->with('success','Category deleted successfully');
+   }
 }

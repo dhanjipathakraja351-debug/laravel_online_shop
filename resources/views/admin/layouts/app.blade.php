@@ -124,6 +124,13 @@ padding:25px;
 </a>
 </li>
 
+<!-- ✅ FIXED SHIPPING -->
+<li>
+<a href="{{ route('admin.shipping.create') }}">
+<i class="fa fa-truck"></i> Shipping
+</a>
+</li>
+
 <li>
 <a href="{{ url('/admin/orders') }}">
 <i class="fa fa-cart-shopping"></i> Orders
@@ -134,6 +141,20 @@ padding:25px;
 <a href="{{ url('/admin/users') }}">
 <i class="fa fa-users"></i> Users
 </a>
+</li>
+
+<li>
+<a href="{{ route('admin.pages.index') }}">
+<i class="fa fa-file"></i> Pages
+</a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.reviews.index') }}" 
+       class="nav-link {{ request()->is('admin/reviews*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Reviews</p>
+    </a>
 </li>
 
 <li class="mt-3">
@@ -152,6 +173,29 @@ padding:25px;
 <!-- Page Content -->
 
 <div class="main-content">
+    <div class="d-flex justify-content-end align-items-center p-2">
+
+   <a href="{{ route('admin.profile') }}">
+    <img src="https://ui-avatars.com/api/?name={{ auth('admin')->user()->name }}"
+         width="35"
+         height="35"
+         class="rounded-circle">
+</a>
+</div>
+
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
 
 @yield('content')
 
@@ -178,6 +222,11 @@ height:200
 });
 
 });
+
+// auto hide alert
+setTimeout(function(){
+    $('.alert').fadeOut('slow');
+},3000);
 
 </script>
 

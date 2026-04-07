@@ -124,6 +124,13 @@ padding:25px;
 </a>
 </li>
 
+<!-- ✅ FIXED SHIPPING -->
+<li>
+<a href="<?php echo e(route('admin.shipping.create')); ?>">
+<i class="fa fa-truck"></i> Shipping
+</a>
+</li>
+
 <li>
 <a href="<?php echo e(url('/admin/orders')); ?>">
 <i class="fa fa-cart-shopping"></i> Orders
@@ -134,6 +141,20 @@ padding:25px;
 <a href="<?php echo e(url('/admin/users')); ?>">
 <i class="fa fa-users"></i> Users
 </a>
+</li>
+
+<li>
+<a href="<?php echo e(route('admin.pages.index')); ?>">
+<i class="fa fa-file"></i> Pages
+</a>
+</li>
+
+<li class="nav-item">
+    <a href="<?php echo e(route('admin.reviews.index')); ?>" 
+       class="nav-link <?php echo e(request()->is('admin/reviews*') ? 'active' : ''); ?>">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Reviews</p>
+    </a>
 </li>
 
 <li class="mt-3">
@@ -152,6 +173,31 @@ padding:25px;
 <!-- Page Content -->
 
 <div class="main-content">
+    <div class="d-flex justify-content-end align-items-center p-2">
+
+   <a href="<?php echo e(route('admin.profile')); ?>">
+    <img src="https://ui-avatars.com/api/?name=<?php echo e(auth('admin')->user()->name); ?>"
+         width="35"
+         height="35"
+         class="rounded-circle">
+</a>
+</div>
+
+<?php if(session('success')): ?>
+<div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+    <?php echo e(session('success')); ?>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<?php endif; ?>
+
+<?php if(session('error')): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+    <?php echo e(session('error')); ?>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<?php endif; ?>
 
 <?php echo $__env->yieldContent('content'); ?>
 
@@ -178,6 +224,11 @@ height:200
 });
 
 });
+
+// auto hide alert
+setTimeout(function(){
+    $('.alert').fadeOut('slow');
+},3000);
 
 </script>
 
